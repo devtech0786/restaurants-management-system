@@ -1,0 +1,7 @@
+﻿.claude/
+brand-bop/node_modules/
+brand-bop/.next/
+brand-website/node_modules/
+brand-website/.next/
+brand-bop/tsconfig.tsbuildinfo
+brand-website/tsconfig.tsbuildinfo

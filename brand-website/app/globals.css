@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /*
+   * ── BRAND CSS VARS ─────────────────────────────────────────────────────
+   * These vars exist for TWO purposes only:
+   *   1. .gradient-brand utility (below) — needs a CSS var to animate
+   *   2. Runtime per-tenant color override in layout.tsx via:
+   *        document.documentElement.style.setProperty("--brand-500", color)
+   *
+   * ⚠️  Do NOT change colors here for development.
+   *     Change them in tailwind.config.ts  — that is the single source of truth.
+   *     Tailwind classes (bg-brand-*, text-brand-*, etc.) read from the config,
+   *     NOT from these vars.  Keep these values in sync with the config manually.
+   * ──────────────────────────────────────────────────────────────────────── */
+  --brand-50:  #fff1f2;   /* sync: tailwind.config.ts  brand[50]  */
+  --brand-100: #ffe4e6;   /* sync: tailwind.config.ts  brand[100] */
+  --brand-200: #fecdd3;
+  --brand-300: #fda4af;
+  --brand-400: #fb7185;
+  --brand-500: #E63946;   /* sync: tailwind.config.ts  brand[500] ← primary */
+  --brand-600: #c9303c;   /* sync: tailwind.config.ts  brand[600] */
+  --brand-700: #a82530;
+  --brand-800: #8c1d25;
+  --brand-900: #741820;
+
+  /* ── Accent ── */
+  --accent-400: #FFDA2D;
+  --accent-500: #FFD60A;
+  --accent-600: #E6C000;
+
+  /* ── Orange (used in .gradient-brand) ── */
+  --orange-500: #FF6B35;
+
+  /* ── Fonts ── */
+  --font-heading: "Poppins", system-ui, sans-serif;
+  --font-sans:    "Inter",   system-ui, sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .safe-top    { padding-top:    env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-left   { padding-left:   env(safe-area-inset-left); }
+  .safe-right  { padding-right:  env(safe-area-inset-right); }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* Gradient helpers */
+  .gradient-brand {
+    background: linear-gradient(135deg, var(--brand-500) 0%, var(--orange-500) 100%);
+  }
+  .gradient-hero {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%);
+  }
+
+  /* Glass card */
+  .glass {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* PWA standalone padding */
+@media (display-mode: standalone) {
+  body { @apply select-none; }
+}
