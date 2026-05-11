@@ -18,7 +18,7 @@ export default function TenantHomePage() {
   const featured  = allItems.filter((i) => i.isFeatured && i.isAvailable).slice(0, 8);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen">
 
       {/* ── MAIN CONTENT ─────────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -32,14 +32,14 @@ export default function TenantHomePage() {
             {/* Section heading */}
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-brand-50 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-brand-50 dark:bg-brand-950/50 flex items-center justify-center">
                   <TrendingUp size={16} className="text-brand-500" />
                 </div>
                 <div>
-                  <h2 className="font-black text-lg lg:text-xl text-gray-900 font-heading leading-none">
+                  <h2 className="font-black text-lg lg:text-xl text-gray-900 dark:text-white font-heading leading-none">
                     Most Popular
                   </h2>
-                  <p className="text-xs text-gray-400 mt-0.5">Loved by our customers</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Loved by our customers</p>
                 </div>
               </div>
               <Link
@@ -73,14 +73,14 @@ export default function TenantHomePage() {
         {/* ── FULL MENU ────────────────────────────────────────────────── */}
         <section className="pb-16">
           <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center">
-              <UtensilsCrossed size={16} className="text-gray-600" />
+            <div className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+              <UtensilsCrossed size={16} className="text-gray-600 dark:text-gray-400" />
             </div>
             <div>
-              <h2 className="font-black text-lg lg:text-xl text-gray-900 font-heading leading-none">
+              <h2 className="font-black text-lg lg:text-xl text-gray-900 dark:text-white font-heading leading-none">
                 Full Menu
               </h2>
-              <p className="text-xs text-gray-400 mt-0.5">Browse everything we offer</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Browse everything we offer</p>
             </div>
           </div>
 
@@ -108,11 +108,11 @@ export default function TenantHomePage() {
                   transition={{ duration: 0.35, delay: catIdx * 0.04 }}
                 >
                   {/* Category heading */}
-                  <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-gray-100">
-                    <h3 className="font-black text-base lg:text-lg text-gray-900 font-heading">
+                  <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-gray-100 dark:border-gray-800">
+                    <h3 className="font-black text-base lg:text-lg text-gray-900 dark:text-white font-heading">
                       {cat.name}
                     </h3>
-                    <span className="text-[11px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full font-medium">
+                    <span className="text-[11px] text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full font-medium">
                       {cat.items.length} items
                     </span>
                   </div>

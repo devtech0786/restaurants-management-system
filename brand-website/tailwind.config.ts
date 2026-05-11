@@ -1,27 +1,25 @@
 import type { Config } from "tailwindcss";
 
-/* ============================================================
-   BRAND PALETTE — single source of truth
-   Change brand[500] (and its shades) here to rebrand the
-   entire site. All bg-brand-*, text-brand-*, border-brand-*,
-   ring-brand-* classes and the shadow-brand box-shadow will
-   update automatically on the next build / HMR refresh.
+/* ══════════════════════════════════════════════════════════════════════════
+   SINGLE SOURCE OF TRUTH — edit brand colors HERE only.
 
-   Also update the matching CSS vars in globals.css so the
-   .gradient-brand utility and runtime per-tenant JS override
-   (layout.tsx) stay in sync.
-   ============================================================ */
+   The Tailwind plugin at the bottom auto-injects matching CSS vars into
+   :root so that .gradient-brand, shadow-brand, and the runtime JS tenant
+   override  (document.documentElement.style.setProperty)  all stay in sync
+   automatically.  You never need to touch globals.css for color changes.
+   ══════════════════════════════════════════════════════════════════════ */
+
 const brand = {
-  50:  "#fff1f2",
-  100: "#ffe4e6",
-  200: "#fecdd3",
-  300: "#fda4af",
-  400: "#fb7185",
-  500: "#E63946",   // ← PRIMARY — change this one value to rebrand the whole site
-  600: "#c9303c",
-  700: "#a82530",
-  800: "#8c1d25",
-  900: "#741820",
+  50:  "#fdf4f3",
+  100: "#fbe8e6",
+  200: "#f7d0cb",
+  300: "#f1b1a8",
+  400: "#e88a7c",
+  500: "#D96C4A",   // ← PRIMARY  — change this one to rebrand the whole site
+  600: "#bf5839",
+  700: "#9f472f",
+  800: "#813b29",
+  900: "#6a3225",
 } as const;
 
 const accent = {
@@ -30,7 +28,9 @@ const accent = {
   600: "#E6C000",
 } as const;
 
-/* Derive rgba shadow from the primary brand hex */
+const orangeGradient = "#FF6B35"; // right-side colour used in .gradient-brand
+
+/* Derive box-shadow colour from the primary brand hex */
 function brandShadow(hex: string, alpha = 0.28): string {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
@@ -39,6 +39,7 @@ function brandShadow(hex: string, alpha = 0.28): string {
 }
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -46,10 +47,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        brand,
-        accent,
-      },
+      colors: { brand, accent },
       fontFamily: {
         heading: ["var(--font-heading)", "system-ui", "sans-serif"],
         sans:    ["var(--font-sans)",    "system-ui", "sans-serif"],
@@ -67,13 +65,23 @@ const config: Config = {
         bounceIn: { "0%": { transform: "scale(0.3)",       opacity: "0" }, "100%": { transform: "scale(1)",        opacity: "1" } },
       },
       boxShadow: {
-        // Auto-derived from brand[500] — stays in sync when you change the palette above
         brand: brandShadow(brand[500]),
         card:  "0 2px 16px rgba(0,0,0,0.06)",
       },
     },
   },
-  plugins: [],
+
+  /* ── Plugin: auto-generate :root CSS vars from the palette above ── */
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function ({ addBase }: any) {
+      const vars: Record<string, string> = {};
+      (Object.entries(brand)  as [string, string][]).forEach(([k, v]) => { vars[`--brand-${k}`]  = v; });
+      (Object.entries(accent) as [string, string][]).forEach(([k, v]) => { vars[`--accent-${k}`] = v; });
+      vars["--orange-500"] = orangeGradient;
+      addBase({ ":root": vars });
+    },
+  ],
 };
 
 export default config;

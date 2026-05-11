@@ -63,7 +63,6 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (manualNav) return;
-        // pick the topmost visible section
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -90,7 +89,6 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
     setActive(id);
     centerPill(id);
 
-    // suppress scroll-spy briefly so the active pill doesn't flicker
     setManualNav(true);
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => setManualNav(false), 800);
@@ -108,7 +106,7 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
   /* ── Skeleton ── */
   if (isLoading) {
     return (
-      <div className="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_1px_12px_rgba(0,0,0,0.06)]">
+      <div className="sticky top-16 z-30 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-[0_1px_12px_rgba(0,0,0,0.06)]">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex gap-2">
           {Array.from({ length: 6 }).map((_, i) => (
             <Skeleton key={i} className="h-9 rounded-full" style={{ width: `${60 + (i % 3) * 20}px` }} />
@@ -119,16 +117,16 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
   }
 
   return (
-    <div className="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.07)]">
+    <div className="sticky top-16 z-30 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-[0_2px_16px_rgba(0,0,0,0.07)]">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 relative">
 
         {/* Left fade */}
         {overflowL && (
-          <div className="absolute left-4 lg:left-8 top-0 bottom-0 w-12 bg-gradient-to-r from-white/95 to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-4 lg:left-8 top-0 bottom-0 w-12 bg-gradient-to-r from-white/95 dark:from-gray-900/95 to-transparent z-10 pointer-events-none" />
         )}
         {/* Right fade */}
         {overflowR && (
-          <div className="absolute right-4 lg:right-8 top-0 bottom-0 w-12 bg-gradient-to-l from-white/95 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-4 lg:right-8 top-0 bottom-0 w-12 bg-gradient-to-l from-white/95 dark:from-gray-900/95 to-transparent z-10 pointer-events-none" />
         )}
 
         {/* Scrollable pill rail */}
@@ -144,7 +142,7 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
               "shrink-0 relative px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap",
               active === null
                 ? "bg-brand-500 text-white shadow-md shadow-brand-500/30 scale-[1.03]"
-                : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700",
+                : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300",
             )}
           >
             All
@@ -153,7 +151,7 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
             )}
           </button>
 
-          {categories.map((cat, i) => {
+          {categories.map((cat) => {
             const isActive = active === cat.id;
             return (
               <button
@@ -164,7 +162,7 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
                   "shrink-0 flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap",
                   isActive
                     ? "bg-brand-500 text-white shadow-md shadow-brand-500/30 scale-[1.03]"
-                    : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700",
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300",
                 )}
               >
                 {cat.name}
@@ -174,7 +172,7 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
                   "inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold transition-all",
                   isActive
                     ? "bg-white/25 text-white"
-                    : "bg-white text-gray-500",
+                    : "bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-400",
                 )}>
                   {cat.items.length}
                 </span>
@@ -185,7 +183,7 @@ export function CategoryGrid({ categories, isLoading }: CategoryGridProps) {
       </div>
 
       {/* Active indicator line */}
-      <div className="h-[2px] bg-gray-50">
+      <div className="h-[2px] bg-gray-100 dark:bg-gray-800">
         <div
           className="h-full bg-brand-500 transition-all duration-500 origin-left"
           style={{

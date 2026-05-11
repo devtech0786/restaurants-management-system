@@ -27,7 +27,7 @@ export function BottomNav({ tenantSlug, onProfileClick }: BottomNavProps) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 safe-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 safe-bottom">
       <div className="max-w-2xl mx-auto flex items-stretch">
         {tabs.map(({ href, label, icon: Icon, badge, onClick }) => {
           const active = pathname === href || (href !== base && pathname.startsWith(href));
@@ -43,7 +43,7 @@ export function BottomNav({ tenantSlug, onProfileClick }: BottomNavProps) {
                   size={22}
                   className={cn(
                     "transition-colors",
-                    active ? "text-brand-500" : "text-gray-400"
+                    active ? "text-brand-500" : "text-gray-400 dark:text-gray-600"
                   )}
                   strokeWidth={active ? 2.5 : 1.8}
                 />
@@ -64,7 +64,7 @@ export function BottomNav({ tenantSlug, onProfileClick }: BottomNavProps) {
               <span
                 className={cn(
                   "text-[10px] font-medium transition-colors",
-                  active ? "text-brand-500" : "text-gray-400"
+                  active ? "text-brand-500" : "text-gray-400 dark:text-gray-600"
                 )}
               >
                 {label}

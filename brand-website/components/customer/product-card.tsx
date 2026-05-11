@@ -54,16 +54,17 @@ function Card({
     <div
       onClick={onOpen}
       className={cn(
-        "group bg-white rounded-2xl overflow-hidden cursor-pointer select-none flex flex-col",
-        "shadow-[0_2px_10px_rgba(0,0,0,0.07)] border border-gray-100",
-        "hover:shadow-[0_12px_36px_rgba(0,0,0,0.13)] hover:-translate-y-1",
+        "group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer select-none flex flex-col",
+        "shadow-[0_2px_10px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.3)]",
+        "border border-gray-100 dark:border-gray-800",
+        "hover:shadow-[0_12px_36px_rgba(0,0,0,0.13)] dark:hover:shadow-[0_12px_36px_rgba(0,0,0,0.4)] hover:-translate-y-1",
         "transition-all duration-300",
         na && "opacity-60 pointer-events-none",
       )}
     >
       {/* ══ IMAGE ══════════════════════════════════════════════════════════ */}
       <div
-        className="relative overflow-hidden bg-gray-100 shrink-0"
+        className="relative overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0"
         style={{ height: compact ? 160 : 190 }}
       >
         {item.imageUrl ? (
@@ -122,7 +123,7 @@ function Card({
 
         {/* Name */}
         <h3 className={cn(
-          "font-black text-gray-900 leading-snug mb-1",
+          "font-black text-gray-900 dark:text-white leading-snug mb-1",
           compact ? "text-[13px] line-clamp-2" : "text-[14px] line-clamp-2",
         )}>
           {item.name}
@@ -130,7 +131,7 @@ function Card({
 
         {/* Description — only on non-compact */}
         {!compact && item.description && (
-          <p className="text-[11px] text-gray-400 line-clamp-2 leading-relaxed mb-2">
+          <p className="text-[11px] text-gray-400 dark:text-gray-500 line-clamp-2 leading-relaxed mb-2">
             {item.description}
           </p>
         )}
@@ -157,7 +158,7 @@ function Card({
         <div className="flex-1" />
 
         {/* ── Divider ── */}
-        <div className="h-px bg-gray-100 my-2.5" />
+        <div className="h-px bg-gray-100 dark:bg-gray-800 my-2.5" />
 
         {/* ── Price + Add button ── */}
         <div className="flex items-center justify-between gap-2">
@@ -169,8 +170,7 @@ function Card({
           </span>
 
           {na ? (
-            <span className="text-[10px] font-bold text-gray-400 bg-gray-100 px-2.5 py-1.5
-              rounded-lg">
+            <span className="text-[10px] font-bold text-gray-400 bg-gray-100 dark:bg-gray-800 dark:text-gray-500 px-2.5 py-1.5 rounded-lg">
               Unavailable
             </span>
           ) : (
